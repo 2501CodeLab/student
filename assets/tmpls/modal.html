@@ -1,0 +1,39 @@
+<% 	event.date_start = new Date(parseInt(event.start));
+	event.date_end = new Date(parseInt(event.end)); %>
+    <h4>
+        <%= event.title %>
+    </h4>
+    <hr>
+    <h5>Starts</h5>
+    <p>
+        <%= calendar.locale["m" + event.date_start.getMonth()] %>
+            <%= event.date_start.getDate() %>,
+                <%= event.date_start.getFullYear() %>, at
+                    <%= event.date_start.getHours() %>:
+                        <%= event.date_start.getMinutes() %>
+    </p>
+    <h5>Ends</h5>
+    <p>
+        <%= calendar.locale["m" + event.date_end.getMonth()] %>
+            <%= event.date_end.getDate() %>,
+                <%= event.date_end.getFullYear() %> at
+                    <%= event.date_end.getHours() %>:
+                        <%= event.date_end.getMinutes() %>
+    </p>
+    <% if (event.loc) { %>
+        <h5> Location </h5>
+        <p>
+            <%= event.loc %>
+        </p>
+        <% } %>
+            <% if (event.desc) {
+            var desc = event.desc;
+            desc = desc.replace(/(?:\r\n|\r|\n)/g, '<br />');%>
+                <h5>Description</h5>
+                <p>
+                    <%= desc %>
+                </p>
+                <% } %> <code>INTERNAL ID</code>
+                    <p>
+                        <%= event.id %>
+                    </p> <a href="<%= event.url %>" class="btn btn-primary">More info</a>
