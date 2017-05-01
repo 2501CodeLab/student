@@ -89,7 +89,8 @@ small {
 }
 
 #template_calendar_card,
-#template_news_card {
+#template_news_card,
+#template_carousel_card {
     display: none;
 }
 

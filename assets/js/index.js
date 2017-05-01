@@ -153,4 +153,45 @@ function listUpcomingEvents(cal_id) {
         }
     });
 }
-window.onload = calStuff;
+$(document).ready(function() {
+    calStuff();
+});
+///
+var config = {
+    apiKey: "AIzaSyDoFhb7KHPyBHftlwotKdfDUkZbh0iyL0E",
+    authDomain: "lt-student-1dbfa.firebaseapp.com",
+    databaseURL: "https://lt-student-1dbfa.firebaseio.com",
+    projectId: "lt-student-1dbfa",
+    storageBucket: "lt-student-1dbfa.appspot.com",
+    messagingSenderId: "663702008341"
+};
+firebase.initializeApp(config);
+//
+var newsRef = firebase.database().ref('news/');
+newsRef.once('value').then(function(data) {
+    console.log(data.key);
+    console.log(data.val());
+    for (var i = 0; i < data.val().length; i++) {
+        var carouselCard = $("#template_carousel_card").clone();
+        carouselCard.removeAttr("id");
+        carouselCard.find(".carousel_news_title").text(data.val()[i].title);
+        carouselCard.find(".carousel_news_caption").text(data.val()[i].caption);
+        carouselCard.find(".carousel_img").css("background-image", "url(" + data.val()[i].img + ")");
+        if (i == 0) {
+            carouselCard.addClass("active");
+        }
+        $(".carousel-inner").append(carouselCard);
+    }
+    $('.carousel').carousel({
+        interval: 5000,
+    });
+});
+//
+var newsRef = firebase.database().ref('announcement/');
+newsRef.once('value').then(function(data) {
+    console.log(data.key);
+    console.log(data.val());
+    if (data.val().show) {
+        $("#main").prepend('<div id="app_alert" style="margin-top: 20px" class="alert alert-dismissible ' + data.val().class + '"> <p>' + data.val().content + '</p> </div>');
+    }
+});
