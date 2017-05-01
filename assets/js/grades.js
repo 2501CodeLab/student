@@ -1,3 +1,5 @@
+ var user;
+
  function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function() {
@@ -14,6 +16,7 @@
  //
  function onSignIn(googleUser) {
   if (googleUser) {
+   user = googleUser;
    console.log(googleUser.getBasicProfile().getEmail());
    $("#signedOut_panel").hide();
    $("#main").show();
@@ -69,6 +72,14 @@
     }
     $("#loader_wrapper").fadeOut();
    });
+   return "yes";
+  } else {
+   $("#loader_wrapper").fadeOut();
+   return "no";
   }
  }
+ // temp fix
+ $(window).on("load", function() {
+  $("#loader_wrapper").fadeOut();
+ });
  

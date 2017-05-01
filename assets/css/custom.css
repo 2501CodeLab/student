@@ -4,7 +4,6 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
     padding-top: 80px;
 }
 
@@ -55,11 +54,36 @@ body {
 }
 
 footer {
+    background-color: #FFC107;
+    color: #545454;
     position: absolute;
     bottom: 0;
+}
+
+.footer-section h1,
+.footer-section h2,
+.footer-section h3,
+.footer-section h4,
+.footer-section h5,
+.footer-section h6 {
+    color: black;
+}
+
+.footer-section {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.footer-section a {
+    color: #545454;
+    text-decoration: underline;
+}
+
+.footer-bottom {
     width: 100%;
-    height: 80px;
-    background-color: #FFC107;
+    background-color: #e2ac0a;
+    padding-bottom: 10px;
+    color: white;
 }
 
 @media (max-width: 768px) {

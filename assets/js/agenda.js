@@ -257,3 +257,7 @@ var taskManager = setInterval(function() {
         clearInterval(taskManager);
     }
 }, 300);
+// temp fix
+$(window).on("load", function() {
+    $("#loader_wrapper").fadeOut();
+});
