@@ -1,6 +1,8 @@
 var mainCalendarData = [];
 var mainCounter = 0;
 var calendarColors = {};
+var taskCounter = 0;
+var totalCalendars = 1;
 /////
 var CLIENT_ID = '642579947353-05qqqb9heom2j074m62d9brpp9pjegtt.apps.googleusercontent.com';
 // Array of API discovery doc URLs for APIs used by the quickstart
@@ -70,6 +72,7 @@ function listUpcomingEvents() {
     gapi.client.calendar.calendarList.list().then(function(response) {
         console.log("---- RESPONSE ----");
         console.log(response);
+        totalCalendars = response.result.items.length;
         console.log("-------------------");
         //
         //
@@ -241,9 +244,16 @@ function listUpcomingEvents() {
                         calendar.view($this.data('calendar-view'));
                     });
                 });
+                taskCounter++;
             });
             //
         }
     });
     //
 }
+var taskManager = setInterval(function() {
+    if (taskCounter == totalCalendars) {
+        $("#loader_wrapper").fadeOut();
+        clearInterval(taskManager);
+    }
+}, 300);

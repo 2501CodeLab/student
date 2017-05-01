@@ -48,6 +48,7 @@
      $("#demerits").text(data["demerits"]);
      $("#counselorEmail").text(data["counselorEmail"]);
      $("#counselorName").text(data["counselorFirstName"] + " " + data["counselorLastName"]);
+     $("#loader_wrapper").fadeOut();
     },
     error: function(jqXHR, error) {
      console.log(error);
@@ -58,6 +59,7 @@
       $("#main").hide();
       $("#unknown_error").show();
      }
+     $("#loader_wrapper").fadeOut();
     }
    });
    //

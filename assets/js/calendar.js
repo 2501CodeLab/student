@@ -1,8 +1,8 @@
 var mainCalendarData = [];
-///
 //
-var gkey = 'AIzaSyDqeyRVEU5D_2kMbseIxy7vCwasgiw6mFo'; // typically like Gtg-rtZdsreUr_fLfhgPfgff
-var calendarid = 'lanetechcollegeprep@gmail.com'; // will look somewhat like 3ruy234vodf6hf4sdf5sd84f@group.calendar.google.com
+var taskCounter = 0;
+//
+var gkey = 'AIzaSyDqeyRVEU5D_2kMbseIxy7vCwasgiw6mFo';
 //
 var maxDate = new Date();
 maxDate.setDate(maxDate.getDate() + 1);
@@ -180,8 +180,7 @@ $(document).ready(function() {
                     },
                     onAfterViewLoad: function(view) {
                         $('.page-header h3').text(this.getTitle());
-                        var tempdemo = true;
-                        if (tempdemo) {
+                        if (!localStorage.calendar_demo) {
                             $("#calendar").find(".cal-day-today span").append('<div class="tutorial_circle" data-trigger="focus" data-container="body" data-toggle="popover" data-placement="top" data-content="Click the date number to see more events!"></div>');
                             $('.tutorial_circle').popover('show');
                         }
@@ -205,6 +204,7 @@ $(document).ready(function() {
                         calendar.view($this.data('calendar-view'));
                     });
                 });
+                taskCounter++;
             },
             error: function(response) {
                 //
@@ -214,3 +214,9 @@ $(document).ready(function() {
         //
     }
 });
+var taskManager = setInterval(function() {
+    if (taskCounter == 3) {
+        $("#loader_wrapper").fadeOut();
+        clearInterval(taskManager);
+    }
+}, 300);

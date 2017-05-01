@@ -67,6 +67,7 @@
       }
      });
     }
+    $("#loader_wrapper").fadeOut();
    });
   }
  }

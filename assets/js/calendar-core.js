@@ -1084,6 +1084,7 @@ if (!String.prototype.formatNum) {
 			}
 			$(".popover").remove();
 			$(".tutorial_circle").remove();
+			localStorage.calendar_demo = true;
 			showEventsList(event, downbox, slider, self);
 		});
 		var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');

@@ -1,4 +1,3 @@
-// 7913237957447191767
 var content;
 var url = "https://www.googleapis.com/blogger/v3/blogs/7913237957447191767/posts?key=AIzaSyDO0gVmX_e8P578L5BXnMakhHA_2TTOZw4";
 $.ajax({
@@ -148,6 +147,7 @@ function listUpcomingEvents(cal_id) {
             }
         },
         error: function(response) {
+            alert("An error has occured while trying to get Lane Tech's calendar events.");
             //
             console.log(response);
         }
@@ -169,8 +169,6 @@ firebase.initializeApp(config);
 //
 var newsRef = firebase.database().ref('news/');
 newsRef.once('value').then(function(data) {
-    console.log(data.key);
-    console.log(data.val());
     for (var i = 0; i < data.val().length; i++) {
         var carouselCard = $("#template_carousel_card").clone();
         carouselCard.removeAttr("id");
@@ -184,14 +182,17 @@ newsRef.once('value').then(function(data) {
     }
     $('.carousel').carousel({
         interval: 5000,
+        pause: null
     });
 });
 //
 var newsRef = firebase.database().ref('announcement/');
 newsRef.once('value').then(function(data) {
-    console.log(data.key);
-    console.log(data.val());
     if (data.val().show) {
         $("#main").prepend('<div id="app_alert" style="margin-top: 20px" class="alert alert-dismissible ' + data.val().class + '"> <p>' + data.val().content + '</p> </div>');
     }
+});
+//
+$(window).on('load', function(e) {
+    $("#loader_wrapper").fadeOut();
 });

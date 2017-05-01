@@ -8,6 +8,6 @@ console.log('%c All of our projects\' code is usually there.', 'color: #ff3e3e;'
 console.log('%c Found a bug? Broke something? Got an error? Report it to us!', 'color: #ff3e3e;');
 console.log('%c --------------------------------------', 'color: #ff3e3e;');
 //
-$(window).on('load', function(e) {
-    $("#loader_wrapper").fadeOut();
-});
+//$(window).on('load', function(e) {
+//    $("#loader_wrapper").fadeOut();
+//});

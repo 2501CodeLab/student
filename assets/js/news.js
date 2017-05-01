@@ -63,3 +63,6 @@ $("#main").on("click", ".panel-footer", function() {
     console.log(toggleID);
 });
 */
+$(window).on('load', function(e) {
+    $("#loader_wrapper").fadeOut();
+});
