@@ -5,29 +5,7 @@ html {
 
 body {
     margin-bottom: 60px;
-}
-
-#main-header {
-    margin-top: 64px;
-}
-
-#main-header-old {
-    margin-top: 64px;
-    color: black;
-    height: 350px;
-    text-align: center;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#version {
-    font-size: 8px;
-    color: lightgray;
+    padding-top: 80px;
 }
 
 .navbar-default {
@@ -53,6 +31,7 @@ body {
 
 .navbar {
     -webkit-box-shadow: none;
+    border-radius: 0px !important;
 }
 
 .navbar a.navbar-brand {
@@ -92,10 +71,6 @@ footer {
     }
 }
 
-#main {
-    margin-top: 100px;
-}
-
  ::-webkit-scrollbar-track {
     background-color: #CCCCCC;
 }
@@ -122,4 +97,53 @@ small {
     .navbar-default .navbar-nav .open .dropdown-menu>li>a {
         color: #fff;
     }
+}
+
+#loader_cursor {
+    animation: loaderfade 500ms ease-out 0s alternate infinite;
+    -webkit-animation: loaderfade 500ms ease-out 0s alternate infinite;
+    -moz-animation: loaderfade 500ms ease-out 0s alternate infinite;
+    -o-animation: loaderfade 500ms ease-out 0s alternate infinite;
+}
+
+@-webkit-keyframes loaderfade {
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes loaderfade {
+    100% {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes loaderfade {
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes loaderfade {
+    100% {
+        opacity: 0;
+    }
+}
+
+#loader_wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1370;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    overflow: none;
+}
+
+#loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
