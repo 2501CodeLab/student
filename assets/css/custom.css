@@ -5,6 +5,13 @@ html {
 
 body {
     padding-top: 80px;
+    padding-bottom: 230px;
+}
+
+@media(max-width:767px) {
+    body {
+        padding-bottom: 350px;
+    }
 }
 
 .navbar-default {
@@ -58,6 +65,7 @@ footer {
     color: #545454;
     position: absolute;
     bottom: 0;
+    width: 100%;
 }
 
 .footer-section h1,
@@ -72,6 +80,7 @@ footer {
 .footer-section {
     padding-bottom: 10px;
     padding-top: 10px;
+    height: auto;
 }
 
 .footer-section a {

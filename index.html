@@ -48,7 +48,7 @@
             top: 0;
             position: absolute;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1;
+            z-index: 100;
         }
         
         @media(max-width:767px) {
@@ -239,11 +239,28 @@
         </a>
     </div> <br>
     <footer>
-        <div class="container" style="color: white">
-            <div style="padding-top: 30px" class="pull-left">
-                <p>Made by LTCodelab with <span style="font-family: monospace;color:#ff3e3e;">&lt;/&gt;</span> 2017</p>
+        <div class="container footer-section">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h4>Other Stuff</h4>
+                    <p><a href="/student/about.html">About LT Student</a></p>
+                    <p><a href="/student/privacy.html">Privacy Policy</a></p>
+                    <p><a href="http://www.lanetech.org/">Lane Tech's Site</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <h4>LT CodeLab</h4>
+                    <p><a href="https://2501codelab.github.io/">Our Site</a></p>
+                    <p><a href="https://github.com/2501CodeLab">GitHub</a></p>
+                </div>
             </div>
-            <div style="padding-top: 20px" class="pull-right"> <img src="assets/media/zyplos_logo.svg" style="height: 45px" /> </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div style="padding-top: 30px" class="pull-left">
+                    <p>Made by LTCodelab with <span style="font-family: monospace; color:#ff3e3e;">&lt;/&gt;</span> 2017</p>
+                </div>
+                <div style="padding-top: 20px" class="pull-right"> <img src="assets/media/zyplos_logo.svg" style="height: 45px" /> </div>
+            </div>
         </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
