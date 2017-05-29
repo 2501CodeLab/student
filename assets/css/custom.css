@@ -42,10 +42,17 @@ body {
 
 .navbar a.navbar-brand {
     padding: 9px 15px 8px;
+    color: white;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: white;
 }
 
 #navbar-image-main {
     height: 45px !important;
+    display: inline-block;
 }
 
 .icon-bar {
@@ -114,7 +121,7 @@ footer {
 }
 
  ::-webkit-scrollbar-thumb {
-    background-color: #ffde00;
+    background-color: #FF8800;
 }
 
 small {
@@ -180,4 +187,8 @@ small {
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+.alert-info {
+    background-color: #2196f3;
 }

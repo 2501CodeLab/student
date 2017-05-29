@@ -3,6 +3,7 @@
   var bellScheduleEndpoint = 'https://lanetech.org/api/public.php?action=BellSchedule';
   // you can optionally add a date
   $.getJSON(bellScheduleEndpoint).done(function(data) {
+   console.log(data);
    $.each(data, function(i, v) {
     $("#bellSchedule").append("<tr><td>" + v.period + "</td><td>" + v.startTime + "</td><td>" + v.endTime + "</td></tr>");
    })

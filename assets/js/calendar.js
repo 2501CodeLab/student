@@ -1,222 +1,265 @@
-var mainCalendarData = [];
+//////////////////////////////////////////////////////////////////////////////
+var gDev;
+//
+var laneEvents = [];
+var cccEvents = [];
+var athleticsEvents = [];
 //
 var taskCounter = 0;
 //
 var gkey = 'AIzaSyDqeyRVEU5D_2kMbseIxy7vCwasgiw6mFo';
 //
-var maxDate = new Date();
-maxDate.setDate(maxDate.getDate() + 1);
-//
 var mainCounter = 0;
 //
-var ids = ["lanetechccc@gmail.com", "lanetechcollegeprep@gmail.com", "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com"];
+function getFriendlyTime(date) {
+    var friendlyTime;
+    if (date.getHours() >= 13) {
+        friendlyTime = date.getHours() - 12;
+    } else {
+        friendlyTime = date.getHours();
+    }
+    if (friendlyTime === 0) {
+        friendlyTime = 12;
+    }
+    if (date.getHours() >= 12) {
+        if (date.getMinutes() == 0) {
+            friendlyTime += ":" + "00pm";
+        } else {
+            friendlyTime += ":" + date.getMinutes() + "pm";
+        }
+    } else {
+        if (date.getMinutes() == 0) {
+            friendlyTime += ":" + "00am";
+        } else {
+            friendlyTime += ":" + date.getMinutes() + "am";
+        }
+    }
+    return friendlyTime;
+}
+//
+function calStuff() {
+    var ids = ["lanetechccc@gmail.com", "lanetechcollegeprep@gmail.com", "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com"];
+    //var ids = ["cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com"];
+    for (var i = 0; i < ids.length; i++) {
+        listCalendarEvents(ids[i]);
+    }
+}
 //
 $(document).ready(function() {
-    for (var i = 0; i < ids.length; i++) {
-        //
-        $.ajax({
-            type: 'GET',
-            url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + ids[i] + '/events?key=' + gkey),
-            dataType: 'json',
-            data: {
-                //'timeMin': new Date(new Date().getFullYear(), 0, 1).toISOString(),
-                //2017-04-04T21:12:37-05:00
-                'timeMin': "2017-04-04T21:12:37-05:00",
-                //'timeMin': new Date().toISOString(),
-                'showDeleted': false,
-                'singleEvents': true,
-                'orderBy': 'startTime'
-            },
-            success: function(events) {
-                //
-                //console.log("FOUND");
-                console.log(events);
-                //
-                //
-                if (events.items.length > 0) {
-                    //console.log("LOGGING EVENTS");
-                    for (j = 0; j < events.items.length; j++) {
-                        mainCounter++;
-                        var event = events.items[j];
-                        var when = event.start.date;
-                        /*
-                        {
-                            "id": "276",
-                            "title": "Short day event",
-                            "url": "https://preview.c9users.io/angelcarbajal/webdevs2/devspace/ltstudentapp/calendar.html",
-                            "class": "event-success",
-                            "start": "1363245600000",
-                            "end": "1363252200000",
-                            "custom": "yes"
-                        }
-                        */
-                        //
-                        var object_color;
-                        //console.warn(events.etag);
-                        switch (events.etag) {
-                            case "\"p320a5kstke7d60g\"":
-                                object_color = "event-warning";
-                                //console.log("ESUCCESS");
-                                break;
-                            case "\"p338970nroaet60g\"":
-                                //console.log("EWARN");
-                                object_color = "event-success";
-                                break;
-                            case "\"p334e9itth27d60g\"":
-                                //console.log("EINFO");
-                                object_color = "event-info";
-                                break;
-                            default:
-                                //console.log("E NULL");
-                                object_color = "event-success";
-                                break;
-                        }
-                        // optimize
-                        //console.log(event.description);
-                        if (when) {
-                            if (event.start.date == event.end.date) {
-                                var event_date = when.split("-");
-                                //
-                                var year = parseInt(event_date[0]);
-                                var month = parseInt(event_date[1]);
-                                var day = parseInt(event_date[2]);
-                                month--;
-                                var object_date = new Date(year, month, day);
-                                var object_timestamp = object_date.getTime();
-                                var object_data = {
-                                    "id": mainCounter,
-                                    "title": event.summary,
-                                    "url": event.htmlLink,
-                                    "class": object_color,
-                                    "start": object_timestamp,
-                                    "end": object_timestamp,
-                                    "desc": event.description,
-                                    "loc": event.location
-                                };
-                                mainCalendarData.push(object_data);
-                            } else {
-                                var event_start_date = event.start.date.split("-");
-                                var event_end_date = event.end.date.split("-");
-                                //
-                                var year = parseInt(event_start_date[0]);
-                                var month = parseInt(event_start_date[1]);
-                                var day = parseInt(event_start_date[2]);
-                                month--;
-                                //
-                                var year2 = parseInt(event_end_date[0]);
-                                var month2 = parseInt(event_end_date[1]);
-                                var day2 = parseInt(event_end_date[2]);
-                                month2--;
-                                //
-                                var object_start_date = new Date(year, month, day);
-                                var object_start_timestamp = object_start_date.getTime();
-                                //
-                                var object_end_date = new Date(year2, month2, day2);
-                                var object_end_timestamp = object_end_date.getTime();
-                                //
-                                var object_data = {
-                                    "id": mainCounter,
-                                    "title": event.summary,
-                                    "url": event.htmlLink,
-                                    "class": object_color,
-                                    "start": object_start_timestamp,
-                                    "end": object_end_timestamp,
-                                    "desc": event.description,
-                                    "loc": event.location
-                                };
-                                //
-                                mainCalendarData.push(object_data);
-                            }
-                            //
-                            //
-                        } else {
-                            var event_start_date = new Date(event.start.dateTime);
-                            var event_end_date = new Date(event.end.dateTime);
-                            //
-                            var object_start_timestamp = event_start_date.getTime();
-                            var object_end_timestamp = event_end_date.getTime();
-                            //
-                            var object_data = {
-                                "id": mainCounter,
-                                "title": event.summary,
-                                "url": event.htmlLink,
-                                "class": object_color,
-                                "start": object_start_timestamp,
-                                "end": object_end_timestamp,
-                                "desc": event.description,
-                                "loc": event.location
-                            };
-                            mainCalendarData.push(object_data);
-                        }
-                    }
-                }
-                ////////////////////////
-                //console.log("--- CURRENT ---");
-                //console.info(mainCalendarData);
-                //console.log("---------------");
-                var options = {
-                    events_source: mainCalendarData,
-                    view: 'month',
-                    tmpl_path: 'assets/tmpls/',
-                    tmpl_cache: false,
-                    modal: "#events-modal",
-                    modal_type: "template",
-                    weekbox: false,
-                    format12: true,
-                    display_week_numbers: false,
-                    modal_title: function(e) {
-                        console.log(e);
-                        return e.title
-                    },
-                    onAfterEventsLoad: function(events) {
-                        if (!events) {
-                            return;
-                        }
-                        var list = $('#eventlist');
-                        list.html('');
-                        $.each(events, function(key, val) {
-                            $(document.createElement('li')).html('<a href="' + val.url + '">' + val.title + '</a>').appendTo(list);
-                        });
-                    },
-                    onAfterViewLoad: function(view) {
-                        $('.page-header h3').text(this.getTitle());
-                        if (!localStorage.calendar_demo) {
-                            $("#calendar").find(".cal-day-today span").append('<div class="tutorial_circle" data-trigger="focus" data-container="body" data-toggle="popover" data-placement="top" data-content="Click the date number to see more events!"></div>');
-                            $('.tutorial_circle').popover('show');
-                        }
-                    },
-                    classes: {
-                        months: {
-                            general: 'label'
-                        }
-                    }
-                };
-                var calendar = $('#calendar').calendar(options);
-                $('.btn-group a[data-calendar-nav]').each(function() {
-                    var $this = $(this);
-                    $this.click(function() {
-                        calendar.navigate($this.data('calendar-nav'));
-                    });
-                });
-                $('.btn-group a[data-calendar-view]').each(function() {
-                    var $this = $(this);
-                    $this.click(function() {
-                        calendar.view($this.data('calendar-view'));
-                    });
-                });
-                taskCounter++;
-            },
-            error: function(response) {
-                //
-                console.log(response);
-            }
-        });
-        //
-    }
+    calStuff();
 });
+//
+function listCalendarEvents(cal_id) {
+    console.log(new Date().toISOString());
+    $.ajax({
+        type: 'GET',
+        url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + cal_id + '/events?key=' + gkey),
+        dataType: 'json',
+        data: {
+            'timeMin': new Date(new Date().getFullYear(), 0, 1).toISOString(),
+            //2017-04-04T21:12:37-05:00
+            //'timeMin': "2017-01-01T21:12:37-05:00",
+            //'timeMin': new Date().toISOString(),
+            'showDeleted': false,
+            'singleEvents': true,
+            'orderBy': 'startTime'
+        },
+        success: function(events) {
+            console.log("----------------------------------------------------------------------");
+            console.log("SUCCESS");
+            console.log(cal_id);
+            console.log(events);
+            console.log("----------------------------------------------------------------------");
+            //
+            localStorage.setItem("full_" + cal_id, JSON.stringify(events.items));
+            localStorage.setItem("full_calendar_backup_date", new Date());
+            //
+            displayEvents(localStorage["full_" + cal_id], cal_id);
+            //
+        },
+        error: function(jqXHR) {
+            console.log("--------------------------------------------------------------------");
+            console.log("An error has occured while trying to get Lane Tech's calendar events.");
+            console.log(jqXHR);
+            console.log("--------------------------------------------------------------------");
+            //
+            console.log(jqXHR.status);
+            console.log(cal_id);
+            //
+            if (localStorage["full_" + cal_id]) {
+                var savedDate = new Date(localStorage.full_calendar_backup_date);
+                $("#calendar_warningDate").text(savedDate.toDateString() + " at " + getFriendlyTime(savedDate));
+                $("#calendar_warningOffline").fadeIn();
+                displayEvents(localStorage["full_" + cal_id], cal_id);
+            } else {
+                if (jqXHR.status == 0) {
+                    $("#calendar_errorOffline").fadeIn();
+                } else {
+                    $("#calendar_error").fadeIn();
+                }
+            }
+            //
+        }
+    });
+}
+//
+function displayEvents(events, cal_id) {
+    //
+    events = JSON.parse(events);
+    //
+    if (events.length > 0) {
+        //console.log("LOGGING EVENTS");
+        for (var j = 0; j < events.length; j++) {
+            mainCounter++;
+            var event = events[j];
+            //console.log("----------------------------");
+            //console.log("EVENT LOG " + cal_id);
+            //console.log(event);
+            //console.log("----------------------------");
+            var when = event.start.date;
+            var object_color;
+            //
+            switch (cal_id) {
+                case "lanetechccc@gmail.com":
+                    object_color = "event-ccc";
+                    break;
+                case "lanetechcollegeprep@gmail.com":
+                    object_color = "event-lane";
+                    break;
+                case "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com":
+                    object_color = "event-athletics";
+                    break;
+                default:
+                    object_color = "event-danger";
+            }
+            var object_data;
+            if (when) {
+                object_data = {
+                    "id": mainCounter,
+                    "title": event.summary,
+                    "class": object_color,
+                    "start": event.start.date,
+                    "end": event.end.date,
+                    "desc": event.description,
+                    "loc": event.location
+                };
+            } else {
+                object_data = {
+                    "id": mainCounter,
+                    "title": event.summary,
+                    "class": object_color,
+                    "start": event.start.dateTime,
+                    "end": event.end.dateTime,
+                    "desc": event.description,
+                    "loc": event.location
+                };
+            }
+            //
+            switch (cal_id) {
+                case "lanetechccc@gmail.com":
+                    cccEvents.push(object_data);
+                    break;
+                case "lanetechcollegeprep@gmail.com":
+                    laneEvents.push(object_data);
+                    break;
+                case "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com":
+                    athleticsEvents.push(object_data);
+                    break;
+                default:
+                    console.log("Problem handling events for: " + cal_id);
+            }
+        }
+    }
+    taskCounter++;
+}
+//
 var taskManager = setInterval(function() {
     if (taskCounter == 3) {
-        $("#loader_wrapper").fadeOut();
+        //
+        var calcEventLimit = 0;
+        if ($(window).width() < 768) {
+            // MOBILE
+            calcEventLimit = 1;
+        } else {
+            // TABLET
+            calcEventLimit = 4;
+        }
+        //
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,today,next',
+                center: 'title',
+                right: 'month,agendaDay,listDay'
+            },
+            displayEventTime: false, // don't show the time column in list view
+            height: "auto",
+            contentHeight: "auto",
+            eventLimit: true, // for all non-agenda views
+            eventLimitClick: "listDay",
+            views: {
+                month: {
+                    eventLimit: calcEventLimit // adjust to 6 only for agendaWeek/agendaDay
+                }
+            },
+            viewRender: function() {
+                $('.fc-today-button').addClass('btn btn-default');
+                $(".fc-button-group").addClass("btn-group");
+                $('.fc-prev-button, .fc-next-button, .fc-month-button, .fc-agendaDay-button, .fc-listDay-button').addClass('btn btn-primary');
+            },
+            eventSources: [{
+                events: cccEvents,
+                className: 'event-ccc'
+            }, {
+                events: laneEvents,
+                className: 'event-lane'
+            }, {
+                events: athleticsEvents,
+                className: 'event-athletics'
+            }],
+            eventClick: function(event) {
+                console.log("----------------------------------------------");
+                console.log("CLICK EVENT");
+                console.log(event);
+                console.log("----------------------------------------------");
+                //
+                $("#event_title").text(event.title);
+                //
+                if (event.desc) {
+                    var desc = event.desc;
+                    desc = desc.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+                    $("#event_desc p").html(desc);
+                    $("#event_desc").show();
+                } else {
+                    $("#event_desc").hide();
+                }
+                //
+                if (event.loc) {
+                    $("#event_loc p").html(event.loc);
+                    $("#event_loc").show();
+                } else {
+                    $("#event_loc").hide();
+                }
+                //
+                console.log("CALC DATES");
+                var date_start = moment(event.start);
+                var date_end = moment(event.end);
+                if (date_start.add(1, 'days').isSame(date_end)) {
+                    $("#event_allDay p").text(event.start.format("dddd, MMMM Do YYYY"));
+                    $("#event_start, #event_end").hide();
+                    $("#event_allDay").show();
+                } else {
+                    $("#event_start p").text(event.start.format("dddd, MMMM Do YYYY, h:mm a"));
+                    $("#event_end p").text(event.end.format("dddd, MMMM Do YYYY, h:mm a"));
+                    $("#event_start, #event_end").show();
+                    $("#event_allDay").hide();
+                }
+                //
+                $("#events_modal").modal("show");
+                return false;
+            },
+        });
+        //
         clearInterval(taskManager);
+        $("#loader_wrapper").fadeOut();
     }
 }, 300);

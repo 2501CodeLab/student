@@ -8,6 +8,16 @@ console.log('%c All of our projects\' code is usually there.', 'color: #ff3e3e;'
 console.log('%c Found a bug? Broke something? Got an error? Report it to us!', 'color: #ff3e3e;');
 console.log('%c --------------------------------------', 'color: #ff3e3e;');
 //
-//$(window).on('load', function(e) {
-//    $("#loader_wrapper").fadeOut();
+//$(window).on("load", function() {
+//    console.log("%c>> WINDOW LOADED", "color: #39b54a;");
+//    if ("serviceWorker" in navigator) {
+//        navigator.serviceWorker.register('sw.js').then(function(registration) {
+//            console.log("%c>> LOADED AND REGISTERING", "color: #39b54a;");
+//        }, function(error) {
+//            console.log("%c>> ------------------------", "color: #39b54a;");
+//            console.log("%c>> REGISTER FAILED", "color: #39b54a;");
+//            console.log(error);
+//            console.log("%c>> ------------------------", "color: #39b54a;");
+//        });
+//    }
 //});
