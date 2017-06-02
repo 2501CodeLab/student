@@ -1,0 +1,17 @@
+{
+    "name": "LT Student",
+    "short_name": "LT Student",
+    "icons": [{
+        "src": "/student/assets/media/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    }, {
+        "src": "/student/assets/media/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }],
+    "theme_color": "#FFC107",
+    "background_color": "#FFC107",
+    "start_url": "https://2501codelab.github.io/student/",
+    "display": "standalone"
+}

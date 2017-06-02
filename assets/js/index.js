@@ -219,7 +219,7 @@ newsRef.once('value').then(function(data) {
         var carouselCard = $("#template_carousel_card").clone();
         carouselCard.removeAttr("id");
         carouselCard.find(".carousel_news_title").text(data.val()[i].title);
-        carouselCard.find(".carousel_news_caption").text(data.val()[i].caption);
+        carouselCard.find(".carousel_news_caption").html(data.val()[i].caption);
         carouselCard.find(".carousel_img").css("background-image", "url(" + data.val()[i].img + "), url(assets/media/default_background.png)");
         if (i == 0) {
             carouselCard.addClass("active");
@@ -235,7 +235,7 @@ newsRef.once('value').then(function(data) {
 var newsRef = firebase.database().ref('announcement/');
 newsRef.once('value').then(function(data) {
     if (data.val().show) {
-        $("#main").prepend('<div id="app_alert" style="margin-top: 20px" class="alert alert-dismissible ' + data.val().class + '"> <p>' + data.val().content + '</p> </div>');
+        $("#main").prepend('<div id="app_alert" style="margin-top: 20px" class="alert ' + data.val().class + '"> <p>' + data.val().content + '</p> </div>');
     }
 });
 //

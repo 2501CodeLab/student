@@ -5,12 +5,12 @@ html {
 
 body {
     padding-top: 80px;
-    padding-bottom: 230px;
+    padding-bottom: 260px;
 }
 
 @media(max-width:767px) {
     body {
-        padding-bottom: 350px;
+        padding-bottom: 380px;
     }
 }
 
@@ -24,7 +24,7 @@ body {
 
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
-    background-color: #EDB407;
+    background-color: #E8AF05;
     color: white;
 }
 
@@ -62,7 +62,7 @@ body {
 @media(max-width:767px) {
     .navbar-default .navbar-collapse,
     .navbar-default .navbar-form {
-        background-color: #ff3e3e;
+        background-color: #F2B705;
         border-color: transparent;
     }
 }
@@ -191,4 +191,17 @@ small {
 
 .alert-info {
     background-color: #2196f3;
+}
+
+.alert a,
+.carousel-caption a {
+    color: white;
+    text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+    .carousel-caption {
+        left: 0;
+        right: 0;
+    }
 }
