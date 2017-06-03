@@ -8,6 +8,10 @@ console.log('%c All of our projects\' code is usually there.', 'color: #ff3e3e;'
 console.log('%c Found a bug? Broke something? Got an error? Report it to us!', 'color: #ff3e3e;');
 console.log('%c --------------------------------------', 'color: #ff3e3e;');
 //
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+//
 //$(window).on("load", function() {
 //    console.log("%c>> WINDOW LOADED", "color: #39b54a;");
 //    if ("serviceWorker" in navigator) {

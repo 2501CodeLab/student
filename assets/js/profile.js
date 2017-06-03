@@ -60,6 +60,7 @@
    $("#signedOut_panel").show();
    //
    $("#studentSchedule").empty();
+   $("#studentFutureSchedule").empty();
   });
  }
 
@@ -84,9 +85,13 @@
     console.log("FUTURE SCHEDULE");
     console.log(data);
     console.log("---------------------------------------");
-    $.each(data, function(i, v) {
-     $("#studentFutureSchedule").append("<tr><td>" + v.subject + "</td><td>" + v.level + "</td><td>" + v.title + "</tr>");
-    });
+    if (data.length == 0) {
+     $("#studentFutureSchedule").parents().eq(1).append('<h5 class="text-center">We don\'t seem to have any courses for you.</h5>');
+    } else {
+     $.each(data, function(i, v) {
+      $("#studentFutureSchedule").append("<tr><td>" + v.subject + "</td><td>" + v.level + "</td><td>" + v.title + "</tr>");
+     });
+    }
    });
    //
    $.ajax({
