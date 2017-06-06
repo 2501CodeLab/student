@@ -59,8 +59,10 @@
    $("#main").hide();
    $("#signedOut_panel").show();
    //
+   $("#not_cps").hide();
    $("#studentSchedule").empty();
    $("#studentFutureSchedule").empty();
+   $("#studentFutureSchedule_error").hide();
   });
  }
 
@@ -86,7 +88,7 @@
     console.log(data);
     console.log("---------------------------------------");
     if (data.length == 0) {
-     $("#studentFutureSchedule").parents().eq(1).append('<h5 class="text-center">We don\'t seem to have any courses for you.</h5>');
+     $("#studentFutureSchedule_error").show();
     } else {
      $.each(data, function(i, v) {
       $("#studentFutureSchedule").append("<tr><td>" + v.subject + "</td><td>" + v.level + "</td><td>" + v.title + "</tr>");
