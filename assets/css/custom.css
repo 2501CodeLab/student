@@ -205,3 +205,160 @@ small {
         right: 0;
     }
 }
+
+
+/**/
+
+.rainbow_text {
+    -webkit-animation: rainbow 5s infinite;
+    -ms-animation: rainbow 5s infinite;
+    -o-animation: rainbow 5s infinite;
+    animation: rainbow 5s infinite;
+}
+
+@-webkit-keyframes rainbow {
+    0% {
+        color: #ffe2e2;
+    }
+    10% {
+        color: #fff2e4;
+    }
+    20% {
+        color: #ffffdb;
+    }
+    30% {
+        color: #f0ffe2;
+    }
+    40% {
+        color: #deffde;
+    }
+    50% {
+        color: #dbffed;
+    }
+    60% {
+        color: #e0ffff;
+    }
+    70% {
+        color: #dfefff;
+    }
+    80% {
+        color: #e7e7ff;
+    }
+    90% {
+        color: #f5ebff;
+    }
+    100% {
+        color: #ffe0f0;
+    }
+}
+
+@-ms-keyframes rainbow {
+    0% {
+        color: #ffe2e2;
+    }
+    10% {
+        color: #fff2e4;
+    }
+    20% {
+        color: #ffffdb;
+    }
+    30% {
+        color: #f0ffe2;
+    }
+    40% {
+        color: #deffde;
+    }
+    50% {
+        color: #dbffed;
+    }
+    60% {
+        color: #e0ffff;
+    }
+    70% {
+        color: #dfefff;
+    }
+    80% {
+        color: #e7e7ff;
+    }
+    90% {
+        color: #f5ebff;
+    }
+    100% {
+        color: #ffe0f0;
+    }
+}
+
+@-o-keyframes rainbow {
+    0% {
+        color: #ffe2e2;
+    }
+    10% {
+        color: #fff2e4;
+    }
+    20% {
+        color: #ffffdb;
+    }
+    30% {
+        color: #f0ffe2;
+    }
+    40% {
+        color: #deffde;
+    }
+    50% {
+        color: #dbffed;
+    }
+    60% {
+        color: #e0ffff;
+    }
+    70% {
+        color: #dfefff;
+    }
+    80% {
+        color: #e7e7ff;
+    }
+    90% {
+        color: #f5ebff;
+    }
+    100% {
+        color: #ffe0f0;
+    }
+}
+
+@keyframes rainbow {
+    0% {
+        color: #ffe2e2;
+    }
+    10% {
+        color: #fff2e4;
+    }
+    20% {
+        color: #ffffdb;
+    }
+    30% {
+        color: #f0ffe2;
+    }
+    40% {
+        color: #deffde;
+    }
+    50% {
+        color: #dbffed;
+    }
+    60% {
+        color: #e0ffff;
+    }
+    70% {
+        color: #dfefff;
+    }
+    80% {
+        color: #e7e7ff;
+    }
+    90% {
+        color: #f5ebff;
+    }
+    100% {
+        color: #ffe0f0;
+    }
+}
+
+
+/**/

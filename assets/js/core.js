@@ -39,3 +39,11 @@ $(document).ready(function() {
 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 ga('create', 'UA-88791541-5', 'auto');
 ga('send', 'pageview');
+//
+$("#zy_washere").hover(function() {
+    $("#zy_msg").hide();
+    $("#zy_logo").fadeIn();
+}, function() {
+    $("#zy_logo").hide();
+    $("#zy_msg").fadeIn();
+});
