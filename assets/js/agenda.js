@@ -304,7 +304,7 @@ var taskManager = setInterval(function() {
                 center: 'title',
                 right: 'month,agendaDay,listDay'
             },
-            defaultView: "listDay",
+            defaultView: "month",
             displayEventTime: false, // don't show the time column in list view
             height: "auto",
             contentHeight: "auto",
