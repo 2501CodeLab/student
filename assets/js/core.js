@@ -47,3 +47,39 @@ $("#zy_washere").hover(function() {
     $("#zy_logo").hide();
     $("#zy_msg").fadeIn();
 });
+///
+var config = {
+    apiKey: "AIzaSyDoFhb7KHPyBHftlwotKdfDUkZbh0iyL0E",
+    authDomain: "lt-student-1dbfa.firebaseapp.com",
+    databaseURL: "https://lt-student-1dbfa.firebaseio.com",
+    projectId: "lt-student-1dbfa",
+    storageBucket: "lt-student-1dbfa.appspot.com",
+    messagingSenderId: "663702008341"
+};
+firebase.initializeApp(config);
+//
+var newsRef = firebase.database().ref('news/');
+newsRef.once('value').then(function(data) {
+    for (var i = 0; i < data.val().length; i++) {
+        var carouselCard = $("#template_carousel_card").clone();
+        carouselCard.removeAttr("id");
+        carouselCard.find(".carousel_news_title").text(data.val()[i].title);
+        carouselCard.find(".carousel_news_caption").html(data.val()[i].caption);
+        carouselCard.find(".carousel_img").css("background-image", "url(" + data.val()[i].img + "), url(assets/media/default_background.png)");
+        if (i == 0) {
+            carouselCard.addClass("active");
+        }
+        $(".carousel-inner").append(carouselCard);
+    }
+    $('.carousel').carousel({
+        interval: 5000,
+        pause: null
+    });
+});
+//
+var newsRef = firebase.database().ref('announcement/');
+newsRef.once('value').then(function(data) {
+    if (data.val().show) {
+        $("#app_alert_wrapper").prepend('<div id="app_alert" style="margin-top: 20px" class="alert ' + data.val().class + '"> <p>' + data.val().content + '</p> </div>');
+    }
+});
