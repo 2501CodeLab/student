@@ -91,22 +91,19 @@
         <h2>Your Profile</h2>
         <div id="app_alert_wrapper"></div>
         <div id="signedOut_panel" class="text-center">
-            <p>You need to sign into your CPS account in order to see your school profile.</p>
-            <div style="text-align: center">
-                <div style="display: inline-block;" class="g-signin2" data-onsuccess="onSignIn"></div>
-            </div>
-        </div>
+            <p>You need to sign into your CPS account in order to see your school profile.</p> <button class="btn btn-primary" onclick="signIn()">Sign In</button> </div>
         <div id="not_cps" class="text-center">
             <hr>
             <h3>Wait a sec!</h3>
             <p>You must be signed into your CPS gmail account to see your grades.</p>
             <p>Also, this only works for Lane Tech students.</p>
-            <div style="text-align: center"> <button class="btn btn-primary" onclick="signOut();">Sign out</button> </div>
+            <div style="text-align: center"> <button class="btn btn-primary" onclick="auth2.signOut();">Sign out</button> </div>
         </div>
         <div id="unknown_error" class="text-center">
             <hr>
             <p>Some unknown error occured. Please refresh the page.</p>
         </div>
+        <!-- @heymrhayes -->
         <div id="main">
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -139,6 +136,7 @@
                     <tbody id="studentData"> </tbody>
                 </table>
             </div>
+            <!--
             <hr>
             <h3>Bell Schedule</h3>
             <div class="table-responsive">
@@ -153,6 +151,7 @@
                     <tbody id="bellSchedule"> </tbody>
                 </table>
             </div>
+            -->
             <hr>
             <h3>Current Classes</h3>
             <div class="table-responsive">
@@ -183,7 +182,7 @@
                     <tbody id="studentFutureSchedule"> </tbody>
                 </table>
                 <h5 id="studentFutureSchedule_error" class="text-center">We don't seem to have any courses for you.</h5>
-            </div> <button class="btn btn-default center-block" href="#" onclick="signOut();">Sign out</button> </div>
+            </div> <button class="btn btn-default center-block" href="#" onclick="auth2.signOut();">Sign out</button> </div>
     </div> <br> <br>
     <footer>
         <div class="container footer-section">
@@ -219,10 +218,11 @@
     <script src="assets/js/moment.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script src="assets/js/core.js"></script>
     <script src="assets/js/profile.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
 </body>
 
 </html>
