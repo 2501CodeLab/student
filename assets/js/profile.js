@@ -67,7 +67,7 @@ var initSigninV2 = function() {
  auth2 = gapi.auth2.init({
   client_id: "466686405732-8e9j1kgs5bo1uu41pc4gkltlhonbka70.apps.googleusercontent.com",
   scope: "profile",
-  //hosted_domain: "cps.edu",
+  hosted_domain: "cps.edu",
  });
  // 
  auth2.isSignedIn.listen(signinChanged);
