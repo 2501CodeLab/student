@@ -7,8 +7,6 @@ var athleticsEvents = [];
 //
 var taskCounter = 0;
 //
-var gkey = 'AIzaSyDqeyRVEU5D_2kMbseIxy7vCwasgiw6mFo';
-//
 var mainCounter = 0;
 //
 function getFriendlyTime(date) {
@@ -53,7 +51,7 @@ function listCalendarEvents(cal_id) {
     console.log(new Date().toISOString());
     $.ajax({
         type: 'GET',
-        url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + cal_id + '/events?key=' + gkey),
+        url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + cal_id + '/events?key=AIzaSyDqeyRVEU5D_2kMbseIxy7vCwasgiw6mFo'),
         dataType: 'json',
         data: {
             'timeMin': new Date(new Date().getFullYear(), 0, 1).toISOString(),
@@ -71,106 +69,83 @@ function listCalendarEvents(cal_id) {
             console.log(events);
             console.log("----------------------------------------------------------------------");
             //
-            localStorage.setItem("full_" + cal_id, JSON.stringify(events.items));
-            localStorage.setItem("full_calendar_backup_date", new Date());
+            events = events.items;
             //
-            displayEvents(localStorage["full_" + cal_id], cal_id);
-            //
+            if (events.length > 0) {
+                //console.log("LOGGING EVENTS");
+                for (var j = 0; j < events.length; j++) {
+                    mainCounter++;
+                    var event = events[j];
+                    //console.log("----------------------------");
+                    //console.log("EVENT LOG " + cal_id);
+                    //console.log(event);
+                    //console.log("----------------------------");
+                    var when = event.start.date;
+                    var object_color;
+                    //
+                    switch (cal_id) {
+                        case "lanetechccc@gmail.com":
+                            object_color = "event-ccc";
+                            break;
+                        case "lanetechcollegeprep@gmail.com":
+                            object_color = "event-lane";
+                            break;
+                        case "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com":
+                            object_color = "event-athletics";
+                            break;
+                        default:
+                            object_color = "event-danger";
+                    }
+                    var object_data;
+                    if (when) {
+                        object_data = {
+                            "id": mainCounter,
+                            "title": event.summary,
+                            "class": object_color,
+                            "start": event.start.date,
+                            "end": event.end.date,
+                            "desc": event.description,
+                            "loc": event.location
+                        };
+                    } else {
+                        object_data = {
+                            "id": mainCounter,
+                            "title": event.summary,
+                            "class": object_color,
+                            "start": event.start.dateTime,
+                            "end": event.end.dateTime,
+                            "desc": event.description,
+                            "loc": event.location
+                        };
+                    }
+                    //
+                    switch (cal_id) {
+                        case "lanetechccc@gmail.com":
+                            cccEvents.push(object_data);
+                            break;
+                        case "lanetechcollegeprep@gmail.com":
+                            laneEvents.push(object_data);
+                            break;
+                        case "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com":
+                            athleticsEvents.push(object_data);
+                            break;
+                        default:
+                            console.log("Problem handling events for: " + cal_id);
+                    }
+                }
+            }
+            taskCounter++;
         },
         error: function(jqXHR) {
             console.log("--------------------------------------------------------------------");
             console.log("An error has occured while trying to get Lane Tech's calendar events.");
             console.log(jqXHR);
+            console.log(cal_id);
             console.log("--------------------------------------------------------------------");
             //
-            console.log(jqXHR.status);
-            console.log(cal_id);
-            //
-            if (localStorage["full_" + cal_id]) {
-                var savedDate = new Date(localStorage.full_calendar_backup_date);
-                $("#calendar_warningDate").text(savedDate.toDateString() + " at " + getFriendlyTime(savedDate));
-                $("#calendar_warningOffline").fadeIn();
-                displayEvents(localStorage["full_" + cal_id], cal_id);
-            } else {
-                if (jqXHR.status == 0) {
-                    $("#calendar_errorOffline").fadeIn();
-                } else {
-                    $("#calendar_error").fadeIn();
-                }
-            }
-            //
+            $("#calendar_error").fadeIn();
         }
     });
-}
-//
-function displayEvents(events, cal_id) {
-    //
-    events = JSON.parse(events);
-    //
-    if (events.length > 0) {
-        //console.log("LOGGING EVENTS");
-        for (var j = 0; j < events.length; j++) {
-            mainCounter++;
-            var event = events[j];
-            //console.log("----------------------------");
-            //console.log("EVENT LOG " + cal_id);
-            //console.log(event);
-            //console.log("----------------------------");
-            var when = event.start.date;
-            var object_color;
-            //
-            switch (cal_id) {
-                case "lanetechccc@gmail.com":
-                    object_color = "event-ccc";
-                    break;
-                case "lanetechcollegeprep@gmail.com":
-                    object_color = "event-lane";
-                    break;
-                case "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com":
-                    object_color = "event-athletics";
-                    break;
-                default:
-                    object_color = "event-danger";
-            }
-            var object_data;
-            if (when) {
-                object_data = {
-                    "id": mainCounter,
-                    "title": event.summary,
-                    "class": object_color,
-                    "start": event.start.date,
-                    "end": event.end.date,
-                    "desc": event.description,
-                    "loc": event.location
-                };
-            } else {
-                object_data = {
-                    "id": mainCounter,
-                    "title": event.summary,
-                    "class": object_color,
-                    "start": event.start.dateTime,
-                    "end": event.end.dateTime,
-                    "desc": event.description,
-                    "loc": event.location
-                };
-            }
-            //
-            switch (cal_id) {
-                case "lanetechccc@gmail.com":
-                    cccEvents.push(object_data);
-                    break;
-                case "lanetechcollegeprep@gmail.com":
-                    laneEvents.push(object_data);
-                    break;
-                case "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com":
-                    athleticsEvents.push(object_data);
-                    break;
-                default:
-                    console.log("Problem handling events for: " + cal_id);
-            }
-        }
-    }
-    taskCounter++;
 }
 //
 var taskManager = setInterval(function() {
@@ -181,7 +156,7 @@ var taskManager = setInterval(function() {
             // MOBILE
             calcEventLimit = 1;
         } else {
-            // TABLET
+            // PC
             calcEventLimit = 4;
         }
         //
@@ -191,14 +166,14 @@ var taskManager = setInterval(function() {
                 center: 'title',
                 right: 'month,agendaDay,listDay'
             },
-            displayEventTime: false, // don't show the time column in list view
+            displayEventTime: false,
             height: "auto",
             contentHeight: "auto",
-            eventLimit: true, // for all non-agenda views
+            eventLimit: true,
             eventLimitClick: "listDay",
             views: {
                 month: {
-                    eventLimit: calcEventLimit // adjust to 6 only for agendaWeek/agendaDay
+                    eventLimit: calcEventLimit
                 }
             },
             viewRender: function() {

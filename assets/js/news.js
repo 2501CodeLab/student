@@ -1,4 +1,3 @@
-// 7913237957447191767
 var content;
 var url = "https://www.googleapis.com/blogger/v3/blogs/7913237957447191767/posts?key=AIzaSyDO0gVmX_e8P578L5BXnMakhHA_2TTOZw4";
 $.ajax({
@@ -34,35 +33,13 @@ $.ajax({
         $("#main").append(newsCard);
     }
     //
-}).fail(function(jqXHR, textStatus, errorThrown) {
+}).fail(function(jqXHR) {
+    console.log("----------------------------------------------------------------------");
     alert("There was an error while trying to get Lane Tech's blog data.");
     console.log(jqXHR);
-    console.log(textStatus);
-    console.log(errorThrown);
+    console.log("----------------------------------------------------------------------");
 });
 //
-/*
-$('#main').on('hidden.bs.collapse', function(e) {
-    $('html, body').animate({
-        scrollTop: $(e.target).parent().outerHeight()
-    }, 10);
-});
-*/
-//
-/*
-$("#main").on("click", ".panel-footer", function() {
-    var toggleID = $(this).attr("id");
-    var open = $(this).data("icon");
-    if (open == "no") {
-        $(this).data("icon", "yes");
-        $(this).html('<i class="material-icons">expand_less</i>');
-    } else {
-        $(this).data("icon", "no");
-        $(this).html('<i class="material-icons">expand_more</i>');
-    }
-    console.log(toggleID);
-});
-*/
 $(window).on('load', function(e) {
     $("#loader_wrapper").fadeOut();
 });

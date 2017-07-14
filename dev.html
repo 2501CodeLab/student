@@ -10,6 +10,7 @@
     <title>Student | LTCodelab</title>
     <meta name="description" content="The LT Student App is a portal to resources tailored specifically to students.">
     <meta name="author" content="LTCodelab">
+    <meta name="google-signin-client_id" content="466686405732-8e9j1kgs5bo1uu41pc4gkltlhonbka70.apps.googleusercontent.com">
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -155,7 +156,7 @@
     <link rel="mask-icon" href="/student/assets/media/safari-pinned-tab.svg" color="#FFC107">
     <link rel="shortcut icon" href="/student/assets/media/favicon.ico">
     <meta name="msapplication-config" content="/student/assets/media/browserconfig.xml">
-    <!-- isaac is actually kinda trash at overwatch -->
+    <!-- have any of you guys seen my chia pet anywhere -->
 </head>
 
 <body>
@@ -230,6 +231,36 @@
     <div class="container" id="main">
         <div id="app_alert_wrapper"></div>
         <!-- -->
+        <h3>devspace</h3>
+        <!--
+         document.getElementById('user-id').innerText = googleUser.getId();
+                document.getElementById('user-scopes').innerText = googleUser.getGrantedScopes();
+                document.getElementById('auth-response').innerText = JSON.stringify(googleUser.getAuthResponse(),
+                
+                document.getElementById('curr-user-cell').innerText = JSON.stringify(googleUser, undefined, 2);
+                document.getElementById('signed-in-cell').innerText = auth2.isSignedI
+        -->
+        <div class="panel panel-default">
+            <div class="panel-body" style="overflow-wrap: break-word;">
+                <div class="text-center"> <button class="btn btn-primary" onclick="signIn()">Sign In</button> <button class="btn btn-primary" onclick="auth2.signOut()">Sign Out</button> </div>
+                <hr>
+                <h4>USER ID</h4>
+                <p id="user-id"> </p>
+                <hr>
+                <h4>SCOPES</h4>
+                <p id="user-scopes"></p>
+                <hr>
+                <h4>AUTH RESPONSE</h4>
+                <p id="auth-response"></p>
+                <hr>
+                <h4>CURRENT USER</h4>
+                <p id="curr-user-cell"></p>
+                <hr>
+                <h4>SIGNED IN</h4>
+                <p id="signed-in-cell"></p> <br>
+                <h2>ENABLE OFFLINE SUPPORT (USE AT OWN RISK)</h2> <button class="btn btn-danger disabled">ENABLE</button> </div>
+        </div>
+        <!-- -->
         <h3>Latest Post</h3>
         <!-- -->
         <div class="alert alert-info" id="blog_warningOffline">We're showing the post we saved on <b><span id="blog_warningDate"></span></b> since you're offline.</div>
@@ -274,7 +305,6 @@
                 <div class="col-xs-12 col-sm-6">
                     <h4>Other Stuff</h4>
                     <p><a href="/student/about.html">About LT Student</a></p>
-                    <p><a href="/student/privacy.html">A Note on Your Data</a></p>
                     <p><a href="https://goo.gl/forms/tpvpSvYJZcmqimgE2">Feedback</a></p>
                     <p><a href="https://goo.gl/forms/WLYvduRnc6ILHYsr1">Report a Bug</a></p>
                 </div>
@@ -304,7 +334,75 @@
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script src="assets/js/core.js"></script>
     <script src="assets/js/index.js"></script>
-    <script async defer src="https://apis.google.com/js/api.js"></script>
+    <script>
+        //
+        var auth2;
+        //
+        function handleClientLoad() {
+            console.debug("-------------------- GAPI devspace --------------------");
+            console.debug("GAPI START");
+            gapi.load('auth2', initSigninV2);
+        };
+        //
+        var initSigninV2 = function() {
+            console.debug("GAPI INIT");
+            auth2 = gapi.auth2.init({
+                client_id: "466686405732-8e9j1kgs5bo1uu41pc4gkltlhonbka70.apps.googleusercontent.com",
+                scope: "profile",
+                hosted_domain: "cps.edu",
+            });
+            // 
+            auth2.isSignedIn.listen(signinChanged);
+            // 
+            auth2.currentUser.listen(userChanged);
+            //
+            if (auth2.isSignedIn.get() == true) {
+                auth2.signIn();
+            } else {}
+            //
+        };
+        //
+        var signinChanged = function(state) {
+            console.debug('Signin state changed to ' + state);
+        };
+        //
+        var userChanged = function(user) {
+            console.debug('User now: ', user);
+            var id_token = user.getAuthResponse().id_token;
+            console.debug(id_token);
+            //
+            $.ajax({
+                url: 'https://lanetech1.ipower.com/api/student.php',
+                method: 'POST',
+                dataType: "json",
+                data: {
+                    idtoken: id_token,
+                    action: 'studentPlannedCourses'
+                }
+            }).done(function(data) {
+                console.debug("---------------------------------------");
+                console.debug("SUCCESS - FUTURE SCHEDULE");
+                console.log(data);
+                console.debug("---------------------------------------");
+                if (data.length == 0) {
+                    $("#studentFutureSchedule_error").show();
+                } else {
+                    $.each(data, function(i, v) {
+                        $("#auth-response").append("<tr><td>" + v.subject + "</td><td>" + v.level + "</td><td>" + v.title + "</tr>");
+                    });
+                }
+            });
+            //
+        };
+        //
+        function signIn() {
+            auth2.signIn({
+                prompt: "select_account"
+            });
+        }
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
     <!-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script> -->
     <script>
         //$(window).on("load", function() {

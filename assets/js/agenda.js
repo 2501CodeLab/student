@@ -14,7 +14,7 @@ var taskCounter = 0;
 var totalCalendars = 1;
 var mainEventSources = [];
 /////
-var CLIENT_ID = '642579947353-05qqqb9heom2j074m62d9brpp9pjegtt.apps.googleusercontent.com';
+var CLIENT_ID = '466686405732-8e9j1kgs5bo1uu41pc4gkltlhonbka70.apps.googleusercontent.com';
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 //

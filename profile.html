@@ -17,7 +17,7 @@
     <link href="https://bootswatch.com/paper/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
     <style>
-        #not_cps,
+        #not_in_system,
         #unknown_error,
         #main,
         #studentFutureSchedule_error {
@@ -92,16 +92,19 @@
         <div id="app_alert_wrapper"></div>
         <div id="signedOut_panel" class="text-center">
             <p>You need to sign into your CPS account in order to see your school profile.</p> <button class="btn btn-primary" onclick="signIn()">Sign In</button> </div>
-        <div id="not_cps" class="text-center">
+        <div id="not_in_system" class="text-center">
             <hr>
-            <h3>Wait a sec!</h3>
-            <p>You must be signed into your CPS gmail account to see your grades.</p>
-            <p>Also, this only works for Lane Tech students.</p>
+            <h3>oop</h3>
+            <p>It seems we couldn't find you in Lane Tech's servers.</p>
+            <p>Be sure you're using your CPS Email. (you are currently logged in as <b><span class="email_display"></span></b>)</p>
+            <p class="help-block">Incoming freshmen, try checking back later.</p>
             <div style="text-align: center"> <button class="btn btn-primary" onclick="auth2.signOut();">Sign out</button> </div>
         </div>
         <div id="unknown_error" class="text-center">
             <hr>
-            <p>Some unknown error occured. Please refresh the page.</p>
+            <p>We couldn't get your information from Lane Tech. Please refresh the page and try again.</p>
+            <p class="help-block">Signed in as <span class="email_display"></span></p>
+            <div style="text-align: center"> <button class="btn btn-primary" onclick="auth2.signOut();">Sign out</button> </div>
         </div>
         <!-- @heymrhayes -->
         <div id="main">
@@ -132,6 +135,10 @@
                             <td>Demerits</td>
                             <td id="demerits"></td>
                         </tr>
+                        <tr>
+                            <td>Signed In as</td>
+                            <td class="email_display"></td>
+                        </tr>
                     </thead>
                     <tbody id="studentData"> </tbody>
                 </table>
@@ -152,8 +159,9 @@
                 </table>
             </div>
             -->
-            <hr>
+            <!--<hr>
             <h3>Current Classes</h3>
+            
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -165,7 +173,7 @@
                     </thead>
                     <tbody id="studentSchedule"> </tbody>
                 </table>
-            </div>
+            </div>-->
             <hr>
             <h3>17-18 Schedule</h3>
             <p>There are your currently planned courses for the 17-18 school year. <b>Some courses may change based on scheduling conflicts and space in selected courses.</b> This page will reflect these changes as they occur. If you feel there is an error
@@ -183,14 +191,13 @@
                 </table>
                 <h5 id="studentFutureSchedule_error" class="text-center">We don't seem to have any courses for you.</h5>
             </div> <button class="btn btn-default center-block" href="#" onclick="auth2.signOut();">Sign out</button> </div>
-    </div> <br> <br>
+    </div> <br>
     <footer>
         <div class="container footer-section">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     <h4>Other Stuff</h4>
                     <p><a href="/student/about.html">About LT Student</a></p>
-                    <p><a href="/student/privacy.html">A Note on Your Data</a></p>
                     <p><a href="https://goo.gl/forms/tpvpSvYJZcmqimgE2">Feedback</a></p>
                     <p><a href="https://goo.gl/forms/WLYvduRnc6ILHYsr1">Report a Bug</a></p>
                 </div>

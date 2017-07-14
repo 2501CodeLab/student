@@ -14,7 +14,7 @@
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://bootswatch.com/paper/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/fullcalendar.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
     <style>
@@ -33,9 +33,7 @@
             border-color: #5C5C5C;
         }
         
-        #calendar_errorOffline,
-        #calendar_error,
-        #calendar_warningOffline {
+        #calendar_error {
             display: none;
         }
         
@@ -164,15 +162,10 @@
     <div class="container">
         <div id="app_alert_wrapper"></div>
         <!-- -->
-        <div class="alert alert-danger" id="calendar_errorOffline">We couldn't get the calendar events since you're offline.</div>
-        <!-- -->
         <div class="alert alert-danger" id="calendar_error">An error occured while trying to get calendar events.</div>
-        <!-- -->
-        <div class="alert alert-info" id="calendar_warningOffline">We're showing a backup we saved on <b><span id="calendar_warningDate"></span></b> since you're offline.</div>
         <!-- -->
         <div id="calendar"></div>
         <!-- -->
-    </div>
     </div> <br><br>
     <footer>
         <div class="container footer-section">
@@ -180,7 +173,6 @@
                 <div class="col-xs-12 col-sm-6">
                     <h4>Other Stuff</h4>
                     <p><a href="/student/about.html">About LT Student</a></p>
-                    <p><a href="/student/privacy.html">A Note on Your Data</a></p>
                     <p><a href="https://goo.gl/forms/tpvpSvYJZcmqimgE2">Feedback</a></p>
                     <p><a href="https://goo.gl/forms/WLYvduRnc6ILHYsr1">Report a Bug</a></p>
                 </div>

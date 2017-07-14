@@ -57,36 +57,32 @@ $(window).on("load", function() {
 var auth2;
 //
 function handleClientLoad() {
- console.debug("-------------------- GAPI devspace --------------------");
- console.debug("GAPI START");
+ console.log("-------------------- GAPI devspace --------------------");
+ console.log("GAPI START");
  gapi.load('auth2', initSigninV2);
 };
 //
 var initSigninV2 = function() {
- console.debug("GAPI INIT");
+ console.log("GAPI INIT");
  auth2 = gapi.auth2.init({
   client_id: "466686405732-8e9j1kgs5bo1uu41pc4gkltlhonbka70.apps.googleusercontent.com",
   scope: "profile",
-  hosted_domain: "cps.edu",
+  //hosted_domain: "cps.edu",
  });
  // 
  auth2.isSignedIn.listen(signinChanged);
  // 
  auth2.currentUser.listen(userChanged);
  //
- if (auth2.isSignedIn.get() == true) {
-  auth2.signIn();
- }
- //
 };
 //
 var signinChanged = function(state) {
- console.debug('Signin state changed to ' + state);
+ console.log('Signin state changed to ' + state);
  if (!state) {
   $("#main").hide();
   $("#signedOut_panel").show();
   //
-  $("#not_cps").hide();
+  $("#not_in_system").hide();
   $("#studentSchedule").empty();
   $("#studentFutureSchedule").empty();
   $("#studentFutureSchedule_error").hide();
@@ -97,16 +93,18 @@ var signinChanged = function(state) {
 };
 //
 var userChanged = function(user) {
+ console.log("USERCHANGED EVENT");
  googleUser = user;
  //
- console.log();
  $("#loader_wrapper").show();
  if (auth2.isSignedIn.get()) {
-  console.debug("USER");
-  console.debug(user.getBasicProfile().getEmail());
-  console.debug('User now: ' + user);
+  console.log("IS LOGGED IN");
+  console.log("USER");
+  console.log(user.getBasicProfile().getEmail());
+  $(".email_display").text(user.getBasicProfile().getEmail());
+  console.log('User now: ', user);
   var id_token = user.getAuthResponse().id_token;
-  console.debug(id_token);
+  console.log(id_token);
   // STUDENT BASIC DATA
   $.ajax({
    url: 'https://lanetech1.ipower.com/api/student.php',
@@ -117,11 +115,16 @@ var userChanged = function(user) {
     action: 'studentBasicData'
    },
    success: function(data) {
-    console.log("AJAX call done inline");
-    if (!data) {
-     console.log("nope");
-    }
+    console.log("---------------------------------------");
+    console.log("STUDENT PROFILE SUCCESS");
     console.log(data);
+    console.log("---------------------------------------");
+    // VERIFY
+    if (data.schedule.length == 0) {
+     $("#main").hide();
+     $("#not_in_system").show();
+    }
+    //
     $.each(data.schedule, function(i, v) {
      $("#studentSchedule").append("<tr><td>" + v.period + "</td><td>" + v.courseName + "</td><td>" + v.teacherLastName + "</tr>");
     });
@@ -133,15 +136,15 @@ var userChanged = function(user) {
     $("#counselorName").text(data["counselorFirstName"] + " " + data["counselorLastName"]);
     $("#loader_wrapper").fadeOut();
    },
-   error: function(jqXHR, error) {
-    console.log(error);
-    if (error == "parsererror") {
-     $("#main").hide();
-     $("#not_cps").show();
-    } else {
-     $("#main").hide();
-     $("#unknown_error").show();
-    }
+   error: function(jqXHR) {
+    console.log("---------------------------------------");
+    console.log("Error getting student basic data");
+    console.log(jqXHR);
+    console.log(googleUser);
+    console.log("---------------------------------------");
+    $("#main").hide();
+    $("#unknown_error").show();
+    $("#loader_wrapper").hide();
    }
   });
   // 17-18 SCHEDULE
@@ -155,7 +158,7 @@ var userChanged = function(user) {
    },
    success: function(data) {
     console.log("---------------------------------------");
-    console.log("FUTURE SCHEDULE");
+    console.log("FUTURE SCHEDULE SUCCESS");
     console.log(data);
     console.log("---------------------------------------");
     if (data.length == 0) {
@@ -166,14 +169,19 @@ var userChanged = function(user) {
      });
     }
    },
-   error: function() {
+   error: function(jqXHR) {
     alert("An error occurred while trying to get next year's schedule.");
+    //
+    console.log("---------------------------------------");
+    console.log("Error getting student future schedule");
+    console.log(jqXHR);
+    console.log(googleUser);
+    console.log("---------------------------------------");
    }
   });
  } else {
-  console.debug("NO USER");
-  console.debug("dev");
-  $("#loader_wrapper").fadeOut();
+  console.log("NOT LOGGED IN");
+  $("#loader_wrapper").hide();
  }
  //
 };
