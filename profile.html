@@ -92,13 +92,12 @@
         <div id="app_alert_wrapper"></div>
         <div id="signedOut_panel" class="text-center">
             <p>You need to sign into your CPS account in order to see your school profile.</p> <button class="btn btn-primary" onclick="signIn()">Sign In</button> </div>
-        <div id="not_in_system" class="text-center">
-            <hr>
-            <h3>oop</h3>
+        <div id="not_in_system" class="jumbotron">
+            <h2>oop</h2>
             <p>It seems we couldn't find you in Lane Tech's servers.</p>
             <p>Be sure you're using your CPS Email. (you are currently logged in as <b><span class="email_display"></span></b>)</p>
-            <p class="help-block">Incoming freshmen, try checking back later.</p>
-            <div style="text-align: center"> <button class="btn btn-primary" onclick="auth2.signOut();">Sign out</button> </div>
+            <p class="help-block">Incoming freshmen, try checking back later.</p> <small>We're still going to load in the page for you anyways, just incase we find some other data in our system.</small>
+            <div style="text-align: right"> <button class="btn btn-primary" onclick="auth2.signOut();">Sign out</button> </div>
         </div>
         <div id="unknown_error" class="text-center">
             <hr>
@@ -161,7 +160,7 @@
             -->
             <!--<hr>
             <h3>Current Classes</h3>
-            
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -178,13 +177,13 @@
             <h3>17-18 Schedule</h3>
             <p>There are your currently planned courses for the 17-18 school year. <b>Some courses may change based on scheduling conflicts and space in selected courses.</b> This page will reflect these changes as they occur. If you feel there is an error
                 in your selection, please contact your counselor or email Mrs. Hildebrandt (avkrakowski@cps.edu).</p>
+            <div class="alert alert-info">We still don't have data for what period each class will be. You will be given this information in the second part of QuickStart.</div>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Subject</th>
-                            <th>Level</th>
                             <th>Course</th>
+                            <th>Period</th>
                         </tr>
                     </thead>
                     <tbody id="studentFutureSchedule"> </tbody>
@@ -225,7 +224,6 @@
     <script src="assets/js/moment.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script src="assets/js/core.js"></script>
     <script src="assets/js/profile.js"></script>
     <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">

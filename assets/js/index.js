@@ -96,19 +96,20 @@ function getFriendlyTime(date) {
 //
 var maxDate = new Date();
 maxDate.setDate(maxDate.getDate() + 1);
-var gkey = 'AIzaSyDqeyRVEU5D_2kMbseIxy7vCwasgiw6mFo';
 //
 function calStuff() {
-    var ids = ["lanetechccc@gmail.com", "lanetechcollegeprep@gmail.com", "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com"];
+    var ids = ["lanetechccc@gmail.com", "lanetechcollegeprep@gmail.com", "cps.edu_7nit1kh7d5hb3qscd6de3f0q68@group.calendar.google.com", "cps.edu_lhfe7oc370gkkffut1kfl1q2t4@group.calendar.google.com"];
     for (var i = 0; i < ids.length; i++) {
         listUpcomingEvents(ids[i]);
     }
 }
+var taskCounter = 0;
+var eventCounter = 0;
 //
 function listUpcomingEvents(cal_id) {
     $.ajax({
         type: 'GET',
-        url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + cal_id + '/events?key=' + gkey),
+        url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + cal_id + '/events?key=AIzaSyDqeyRVEU5D_2kMbseIxy7vCwasgiw6mFo'),
         dataType: 'json',
         data: {
             'calendarId': cal_id,
@@ -180,10 +181,10 @@ function listUpcomingEvents(cal_id) {
                         default:
                             $("#calendar_space").append(agendaCard);
                     }
+                    eventCounter++;
                 }
-            } else {
-                $("#calendar_noEvents").show();
             }
+            taskCounter++;
         },
         error: function(jqXHR) {
             console.log("--------------------------------------------------------------------");
@@ -200,7 +201,13 @@ $(document).ready(function() {
     calStuff();
 });
 //
-$(window).on('load', function(e) {
-    $("#loader_wrapper").fadeOut();
-});
+var taskManager = setInterval(function() {
+    if (taskCounter == 4) {
+        clearInterval(taskManager);
+        if (eventCounter == 0) {
+            $("#calendar_noEvents").show();
+        }
+        $("#loader_wrapper").fadeOut();
+    }
+}, 300);
 //

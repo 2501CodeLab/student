@@ -67,7 +67,7 @@ var initSigninV2 = function() {
  auth2 = gapi.auth2.init({
   client_id: "466686405732-8e9j1kgs5bo1uu41pc4gkltlhonbka70.apps.googleusercontent.com",
   scope: "profile",
-  hosted_domain: "cps.edu",
+  //hosted_domain: "cps.edu",
  });
  // 
  auth2.isSignedIn.listen(signinChanged);
@@ -121,8 +121,9 @@ var userChanged = function(user) {
     console.log("---------------------------------------");
     // VERIFY
     if (data.schedule.length == 0) {
-     $("#main").hide();
      $("#not_in_system").show();
+     $("#loader_wrapper").fadeOut();
+     return;
     }
     //
     $.each(data.schedule, function(i, v) {
@@ -144,7 +145,7 @@ var userChanged = function(user) {
     console.log("---------------------------------------");
     $("#main").hide();
     $("#unknown_error").show();
-    $("#loader_wrapper").hide();
+    $("#loader_wrapper").fadeOut();
    }
   });
   // 17-18 SCHEDULE
@@ -154,18 +155,18 @@ var userChanged = function(user) {
    dataType: "json",
    data: {
     idtoken: id_token,
-    action: 'studentPlannedCourses'
+    action: 'studentTentativeProgram'
    },
    success: function(data) {
     console.log("---------------------------------------");
-    console.log("FUTURE SCHEDULE SUCCESS");
+    console.log("TENTATIVE SCHEDULE SUCCESS");
     console.log(data);
     console.log("---------------------------------------");
     if (data.length == 0) {
      $("#studentFutureSchedule_error").show();
     } else {
      $.each(data, function(i, v) {
-      $("#studentFutureSchedule").append("<tr><td>" + v.subject + "</td><td>" + v.level + "</td><td>" + v.title + "</tr>");
+      $("#studentFutureSchedule").append("<tr><td>" + v.course + "</td><td>" + v.period + "</td></tr>");
      });
     }
    },
