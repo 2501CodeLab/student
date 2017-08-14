@@ -1,0 +1,55 @@
+<div>
+  <div style="max-height: 400px">
+    <div uib-carousel active="active" interval="5000" no-wrap="false">
+      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+        <img ng-src="{{slide.image}}" style="margin:auto;max-height:400px;">
+        <div class="carousel-caption">
+          <h4>{{slide.title}}</h4>
+          <p>{{slide.caption}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- -->
+
+<div class="container">
+
+  <div id="app_alert_wrapper"></div>
+          <!-- -->
+          <h3>Latest Post <small>from the Lane Tech website.</small></h3>
+          <!-- -->
+          <div class="alert alert-danger" id="blog_error"> An error occured while trying to get the latest news post. </div>
+          <!-- -->
+          <div class="panel panel-default">
+              <div class="panel-body" id="blog_RecentPost"> </div>
+          </div>
+          <!-- -->
+          <a href="news.html">
+              <div class="panel panel-default">
+                  <div class="panel-body"> More News <span class="pull-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></span> </div>
+              </div>
+          </a>
+          <h3>Events for Today <small>and tomorrow.</small></h3>
+          <!-- -->
+          <div class="alert alert-danger" id="calendar_error">An error occured while trying to get today's events.</div>
+          <!-- -->
+          <div class="alert alert-info" id="calendar_noEvents">No events found.</div>
+          <!-- -->
+          <div class="panel panel-primary" id="template_calendar_card">
+              <div class="panel-heading" style="background-color: #4CAF50">
+                  <h3 class="panel-title"><span class="agenda_calendarName"></span></h3>
+              </div>
+              <div class="panel-body">
+                  <h4 class="agenda_eventTitle" style="margin-top:0"></h4>
+              </div>
+          </div>
+          <a href="calendar.html">
+              <div class="panel panel-default">
+                  <div class="panel-body">Full Calendar<span class="pull-right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></span> </div>
+              </div>
+          </a>
+          <div id="calendar_space"></div>
+
+</div>
